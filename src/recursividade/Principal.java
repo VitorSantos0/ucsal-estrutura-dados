@@ -4,8 +4,6 @@ public class Principal {
 
 	public static void main(String[] args) {
 		
-		System.out.println(CalculaMMCRecursivo(12, 18, Math.max(12, 18)));
-		
 	}
 
 	// questão 1

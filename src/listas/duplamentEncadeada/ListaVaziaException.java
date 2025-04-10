@@ -1,10 +1,10 @@
 package listas.duplamentEncadeada;
 
-public class EmpryListException extends Exception {
+public class ListaVaziaException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public EmpryListException(String msg) {
+	public ListaVaziaException(String msg) {
 		super(msg);
 	}
 }
