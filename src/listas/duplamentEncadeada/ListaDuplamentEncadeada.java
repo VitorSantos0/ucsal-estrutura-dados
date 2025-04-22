@@ -8,10 +8,6 @@ public class ListaDuplamentEncadeada<T> {
 	public Celula<T> getAtual() {
 		return atual;
 	}
-
-	public void setAtual(Celula<T> current) {
-		this.atual = current;
-	}
 	
 	public boolean isEmpty() {
 		return this.primeiro == null && this.ultimo == null;
@@ -24,31 +20,21 @@ public class ListaDuplamentEncadeada<T> {
 			this.primeiro = this.ultimo = cell;
 			cell.setAnterior(null);
 		} else {
+			primeiro.setAnterior(cell);
 			cell.setProximo(primeiro);
-			cell.setAnterior(null);
 			this.primeiro = cell;
 		}
-		this.setAtual(cell);
 	}
 	
-	public Celula<T> removerEsquerda() throws ListaVaziaException {
-		Celula<T> aux = ultimo;
-		Celula<T> pre = ultimo;
-		Celula<T> cell = new Celula<T>();
+	public void removerEsquerda() throws ListaVaziaException {
 		if(this.isEmpty()) {
 			throw new ListaVaziaException("the list is empty");
 		} else {
-			cell = aux;
-			this.setAtual(aux.getProximo());
-			if(this.atual == null) {
-				this.primeiro = this.ultimo = null;
-			} else {
-				pre = aux.getProximo();
-				primeiro = pre;
-				pre.setAnterior(null);
-			}
+			Celula<T> aux = primeiro.getProximo();
+			aux.setAnterior(null);
+			ultimo.setProximo(null);
+			this.primeiro = aux;
 		}
-		return cell;
 	}
 	
 	public void inserirDireita(T value) {
@@ -58,31 +44,21 @@ public class ListaDuplamentEncadeada<T> {
 			this.primeiro = this.ultimo = cell;
 			cell.setProximo(null);
 		} else {
-			cell.setAnterior(null);
-			cell.setProximo(primeiro);
-			this.primeiro = cell;
+			ultimo.setProximo(cell);
+			cell.setAnterior(ultimo);
+			this.ultimo = cell;
 		}
-		this.setAtual(cell);
 	}
 	
-	public Celula<T> removerDireita() throws ListaVaziaException {
-		Celula<T> aux = ultimo;
-		Celula<T> pre = ultimo;
-		Celula<T> cell = new Celula<T>();
+	public void removerDireita() throws ListaVaziaException {
 		if(this.isEmpty()) {
 			throw new ListaVaziaException("the list is empty");
 		} else {
-			cell = aux;
-			this.setAtual(aux.getAnterior());
-			if(this.atual == null) {
-				this.primeiro = this.ultimo = null;
-			} else {
-				pre = aux.getAnterior();
-				ultimo = pre;
-				pre.setProximo(null);
-			}
+			Celula<T> aux = ultimo.getAnterior();
+			aux.setProximo(null);
+			ultimo.setAnterior(null);
+			ultimo = aux;
 		}
-		return cell;
 	}
 	
 	public boolean temProximo() {
@@ -102,9 +78,12 @@ public class ListaDuplamentEncadeada<T> {
 		if(this.isEmpty()) {
 			throw new ListaVaziaException("the list is empty");
 		}
-		while(this.temProximo()) {
+		atual = primeiro;
+		while(atual != null) {
 			System.out.println(atual.getValor());
+			atual = atual.getProximo();
 		}
+		System.out.println();
 	}
 	
  }
