@@ -30,7 +30,7 @@ public class PilhaString {
 	public void imprimir() {
 		if(vazia()) throw new RuntimeException("A pilha esta vazia");
 		for(int i = tamanho()-1; i>=0; i--) {
-			System.out.println(i+"-"+pilha.get(i));
+			System.out.println(pilha.get(i));
 		}
 		System.out.println();
 	}

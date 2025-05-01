@@ -12,6 +12,9 @@ public class CafeComEstrutura {
 		pilha.inserir("Anderson dos Santos");
 		pilha.inserir("Angela Peixoto");
 		pilha.inserir("Arthur Gabriel");
+		
+		pilha.listar();
+		
 		pilha.imprimir();
 		
 		System.out.println("Pilha vazia? "+pilha.vazia()+"\n");
