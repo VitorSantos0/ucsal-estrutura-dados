@@ -2,6 +2,7 @@ package arvore;
 
 public class ArvoreBinaria {
 	private No raiz;
+	private No atual;
 	
 	public ArvoreBinaria() {
 		this.raiz = null;
@@ -21,11 +22,11 @@ public class ArvoreBinaria {
 		return this.raiz == null;
 	}
 	
-	private No busca(No T, int valor) {
-		if(T == null) return null;
-		if(T.getConteudo() == valor) return T;
-		No aux = busca(T.getEsquerda(), valor);
-		if(aux == null) aux = busca(T.getDireita(), valor);
+	private No busca(No no, int valor) {
+		if(no == null) return null;
+		if(no.getConteudo() == valor) return no;
+		No aux = busca(no.getEsquerda(), valor);
+		if(aux == null) aux = busca(no.getDireita(), valor);
 		return aux;
 	}
 	
@@ -62,25 +63,50 @@ public class ArvoreBinaria {
 		return true;
 	}
 	
-	private void exibePreOrdem(No T) {
-		if(T == null) return;
-		System.out.print(T.getConteudo()+" ");
-		if(T.getEsquerda() != null) exibePreOrdem(T.getEsquerda());
-		if(T.getDireita() != null) exibePreOrdem(T.getDireita());
+	public void inserir(int valor) {
+		No T = new No();
+		T.setConteudo(valor);
+		if(vazia()) {
+			inserirRaiz(T.getConteudo());
+			return;
+		}
+		if(this.atual == null) this.atual = this.raiz;
+		if(T.getConteudo() < this.atual.getConteudo()) {
+			if(this.atual.getEsquerda() == null) {				
+				this.atual.setEsquerda(T);
+				return;
+			}
+			this.atual = this.atual.getEsquerda();
+		} else {
+			if(this.atual.getDireita() == null) {				
+				this.atual.setDireita(T);
+				return;
+			}
+			this.atual = this.atual.getDireita();
+		}
+		inserir(valor);
+		this.atual = this.raiz;
 	}
 	
-	private void exibeCentral(No T) {
-		if(T == null) return;
-		if(T.getEsquerda() != null) exibePreOrdem(T.getEsquerda());
-		System.out.println(T.getConteudo());
-		if(T.getDireita() != null) exibePreOrdem(T.getDireita());
+	private void exibePreOrdem(No no) {
+		if(no == null) return;
+		System.out.print(no.getConteudo()+" ");
+		if(no.getEsquerda() != null) exibePreOrdem(no.getEsquerda());
+		if(no.getDireita() != null) exibePreOrdem(no.getDireita());
 	}
 	
-	private void exibePosOrdem(No T) {
-		if(T == null) return;
-		if(T.getEsquerda() != null) exibePreOrdem(T.getEsquerda());
-		if(T.getDireita() != null) exibePreOrdem(T.getDireita());
-		System.out.println(T.getConteudo());
+	private void exibeCentral(No no) {
+		if(no == null) return;
+		if(no.getEsquerda() != null) exibePreOrdem(no.getEsquerda());
+		System.out.print(no.getConteudo()+" ");
+		if(no.getDireita() != null) exibePreOrdem(no.getDireita());
+	}
+	
+	private void exibePosOrdem(No no) {
+		if(no == null) return;
+		if(no.getEsquerda() != null) exibePreOrdem(no.getEsquerda());
+		if(no.getDireita() != null) exibePreOrdem(no.getDireita());
+		System.out.println(no.getConteudo());
 	}
 	
 	public void exibePreOrdem() {
