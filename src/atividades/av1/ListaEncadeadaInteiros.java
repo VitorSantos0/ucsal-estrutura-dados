@@ -1,4 +1,4 @@
-package atividades.av290325;
+package atividades.av1;
 
 import java.util.Scanner;
 
